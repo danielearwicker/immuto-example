@@ -1,0 +1,39 @@
+{
+  "name": "immuto-example",
+  "version": "0.9.4",
+  "description": "Demo of Immuto, a very strongly typed Redux adaptation for TypeScript",
+  "main": "built/index.js",
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielearwicker/immuto-example.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "typescript"
+  ],
+  "author": "Daniel Earwicker <dan@earwicker.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielearwicker/immuto-examples/issues"
+  },
+  "homepage": "https://github.com/danielearwicker/immuto-examples#readme",
+  "dependencies": {
+    "@types/react": "^0.14.34",
+    "@types/react-dom": "^0.14.16",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "immuto": "^0.9.9",
+    "immuto-react": "^0.9.5",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "redux": "^3.5.2",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.0.2",
+    "webpack": "^1.13.2"
+  }
+}

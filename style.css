@@ -1,0 +1,81 @@
+body {
+  font: 12pt Arial, Helvetica, sans-serif;
+  background: #f8f8f8;
+}
+
+.shop {
+    padding: 12px;
+}
+
+input {
+  background: transparent;
+  border: none;
+}
+
+.shop-header {
+  margin-bottom: 12px;
+}
+
+.shop-header input {
+  font: 16pt Arial, Helvetica, sans-serif;
+}
+
+.shop-header button {
+  float: right;
+  margin-left: 8px;
+}
+
+.shelf {
+  padding: 12px;
+  border: 1px solid transparent;
+  
+}
+
+.shelf.editing {
+  border: 1px solid silver;
+  background: white;
+  box-shadow: 5px 5px 5px silver;  
+}
+
+.shelf-header {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid silver;
+}
+
+.shelf-header input {
+  font: 14pt Arial, Helvetica, sans-serif;
+}
+
+.shelf-header button {
+  float: right;
+  margin-left: 8px;
+}
+
+.shelf-book {
+  border: 1px solid gray;
+  display: inline-block;
+  box-shadow: 5px 5px 5px silver;  
+  margin: 0 8px 8px 0;
+}
+
+.book {
+  background: #ddd;
+  padding: 6px;
+}
+
+.book.editing {
+  background: #eee;
+}
+
+.book-title {
+  margin-bottom: 12px;
+}
+
+.book-title input {
+  font-style: italic;
+}
+
+.book-price input {
+  text-align: right;
+}
