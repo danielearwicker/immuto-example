@@ -1,4 +1,5 @@
 import * as React from "react";
+import { optimize } from "immuto-react";
 import { Shelf } from "../models/shelf";
 import { BookEditor } from "./BookEditor";
 import { TextInput } from "./TextInput";
@@ -10,10 +11,10 @@ export interface ShelfEditorProps {
     remove(): void;
 }
 
-export function ShelfEditor(
-    {shelf, enableEditing, remove}: ShelfEditorProps
-) {
-    const {books, selectedBook} = shelf.state;
+export const ShelfEditor = optimize((
+    { shelf, enableEditing, remove }: ShelfEditorProps
+) => {
+    const { books, selectedBook } = shelf.state;
 
     const addBook = () => shelf(Shelf.books.add(getNextId(books)));
     const removeBook = (id: number) => shelf(Shelf.books.remove(id));
@@ -42,12 +43,12 @@ export function ShelfEditor(
                             <BookEditor
                                 book={Shelf.books(shelf, book)}
                                 enableEditing={enableEditing && book === selectedBook}
-                                remove={() => removeBook(book)}/>
+                                remove={() => removeBook(book)} />
                         </div>
                     )
                 }
             </div>
         </div>
     );
-}
+}, ["remove"]);
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { optimize } from "immuto-react";
 import { Book } from "../models/book";
 import { DecimalInput } from "./DecimalInput";
 import { TextInput } from "./TextInput";
@@ -9,9 +10,9 @@ export interface BookEditorProps {
     remove(): void;
 }
 
-export function BookEditor(
-    {book, enableEditing, remove}: BookEditorProps,
-) {
+export const BookEditor = optimize((
+    { book, enableEditing, remove }: BookEditorProps,
+) => {
 
     const mainClass = "book" + (enableEditing ? " editing" : "");
 
@@ -23,16 +24,15 @@ export function BookEditor(
         <div className={mainClass}>
             <div className="book-title">
                 <TextInput property={Book.title(book)}
-                           placeholder="Book title" />
+                    placeholder="Book title" />
                 <button onClick={remove} style={visibleIfEditing}>X</button>
             </div>
             <div className="book-price">
                 <DecimalInput property={Book.price(book)}
-                              placeholder="Price"
-                              decimalPlaces={2} />
+                    placeholder="Price"
+                    decimalPlaces={2} />
             </div>
         </div>
     );
-}
-
+}, ["remove"]);
 

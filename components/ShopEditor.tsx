@@ -1,13 +1,14 @@
 import * as React from "react";
+import { optimize } from "immuto-react";
 import { Shop } from "../models/shop";
 import { ShelfEditor } from "./ShelfEditor";
 import { TextInput } from "./TextInput";
 import { getIds, getNextId } from "../util";
 
-export function ShopEditor(
-    {shop}: {shop: Shop.Cursor}
-) {
-    const {name, shelves, selectedShelf} = shop.state;
+export const ShopEditor = optimize((
+    { shop }: { shop: Shop.Cursor }
+) => {
+    const { name, shelves, selectedShelf } = shop.state;
 
     const addShelf = () => shop(Shop.shelves.add(getNextId(shelves)));
     const removeShelf = (id: number) => shop(Shop.shelves.remove(id));
@@ -15,7 +16,7 @@ export function ShopEditor(
     return (
         <div className="shop">
             <div className="shop-header">
-                <TextInput property={Shop.name(shop)} placeholder="Shop name"/>
+                <TextInput property={Shop.name(shop)} placeholder="Shop name" />
                 <button onClick={addShelf}>Add a shelf</button>
             </div>
             <div className="shop-shelves>">
@@ -35,5 +36,5 @@ export function ShopEditor(
             </div>
         </div>
     );
-}
+});
 

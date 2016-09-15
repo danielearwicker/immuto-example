@@ -25,7 +25,7 @@ export class DecimalInput
     }
 
     valueChanged(value: string) {
-        this.setState({ valueAsString: value });
+        this.setState({valueAsString: value});
 
         const parsed = parseFloat(value);
         if (!isNaN(parsed)) {

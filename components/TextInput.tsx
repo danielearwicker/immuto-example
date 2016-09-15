@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Property } from "immuto";
+import {Property} from "immuto";
 
 export interface TextInputProps {
     property: Property<string>;
