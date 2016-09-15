@@ -4,15 +4,14 @@ import { DecimalInput } from "./DecimalInput";
 import { TextInput } from "./TextInput";
 
 export interface BookEditorProps {
+    book: Book.Cursor;
     enableEditing: boolean;
     remove(): void;
 }
 
 export function BookEditor(
-    {enableEditing, remove}: BookEditorProps,
-    book: Book.Cursor
+    {book, enableEditing, remove}: BookEditorProps,
 ) {
-    const {title, price, authors} = book.state;
 
     const mainClass = "book" + (enableEditing ? " editing" : "");
 

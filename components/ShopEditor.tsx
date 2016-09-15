@@ -1,16 +1,11 @@
 import * as React from "react";
-import { bindToCursor } from "immuto-react";
 import { Shop } from "../models/shop";
 import { ShelfEditor } from "./ShelfEditor";
+import { TextInput } from "./TextInput";
 import { getIds, getNextId } from "../util";
 
-export interface ShopEditorProps { }
-
-const ShopShelfEditor = bindToCursor(ShelfEditor, Shop.shelves);
-
 export function ShopEditor(
-    props: ShopEditorProps,
-    shop: Shop.Cursor
+    {shop}: {shop: Shop.Cursor}
 ) {
     const {name, shelves, selectedShelf} = shop.state;
 
@@ -20,10 +15,7 @@ export function ShopEditor(
     return (
         <div className="shop">
             <div className="shop-header">
-                <input type="text"
-                    value={name}
-                    placeholder="Shop name"
-                    onChange={e => shop(Shop.setName(e.currentTarget.value))} />
+                <TextInput property={Shop.name(shop)} placeholder="Shop name"/>
                 <button onClick={addShelf}>Add a shelf</button>
             </div>
             <div className="shop-shelves>">
@@ -32,11 +24,11 @@ export function ShopEditor(
                         <div className="shop-shelf>"
                             key={shelf}
                             onClick={() => shop(Shop.selectShelf(shelf))}>
-                            <ShopShelfEditor
-                                cursor={shop}
-                                path={shelf}
+                            <ShelfEditor
+                                shelf={Shop.shelves(shop, shelf)}
                                 enableEditing={shelf === selectedShelf}
-                                remove={() => removeShelf(shelf)}/>
+                                remove={() => removeShelf(shelf)}
+                                />
                         </div>
                     )
                 }

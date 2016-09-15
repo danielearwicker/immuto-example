@@ -2,7 +2,7 @@ import { Shop } from "./models/shop";
 
 export const actions: typeof Shop.reduce.actionType[] = [
     {
-        "type": "SET_NAME",
+        "type": "NAME",
         "payload": "Crazy Joe's Bookarama"
     },
     {
@@ -16,7 +16,7 @@ export const actions: typeof Shop.reduce.actionType[] = [
         "payload": {
             "key": 1,
             "update": {
-                "type": "SET_DESCRIPTION",
+                "type": "DESCRIPTION",
                 "payload": "Romance"
             }
         }
@@ -118,7 +118,7 @@ export const actions: typeof Shop.reduce.actionType[] = [
         "payload": {
             "key": 2,
             "update": {
-                "type": "SET_DESCRIPTION",
+                "type": "DESCRIPTION",
                 "payload": "History"
             }
         }

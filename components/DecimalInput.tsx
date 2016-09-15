@@ -54,10 +54,12 @@ export class DecimalInput
             : "" + this.props.property.state;
 
         return (
-            <input type="text"
+            <input
+                type="text"
                 value={valueAsString}
                 placeholder={this.props.placeholder}
-                onChange={e => this.valueChanged(e.currentTarget.value)} />
+                onChange={e => this.valueChanged(e.currentTarget.value)}
+                />
         );
     }
 }

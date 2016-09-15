@@ -1,22 +1,19 @@
 import * as React from "react";
-import { bindToCursor } from "immuto-react";
 import { Shelf } from "../models/shelf";
 import { BookEditor } from "./BookEditor";
 import { TextInput } from "./TextInput";
 import { getIds, getNextId } from "../util";
 
 export interface ShelfEditorProps {
+    shelf: Shelf.Cursor;
     enableEditing: boolean;
     remove(): void;
 }
 
-const ShelfBookEditor = bindToCursor(BookEditor, Shelf.books);
-
 export function ShelfEditor(
-    {enableEditing, remove}: ShelfEditorProps,
-    shelf: Shelf.Cursor
+    {shelf, enableEditing, remove}: ShelfEditorProps
 ) {
-    const {description, books, selectedBook} = shelf.state;
+    const {books, selectedBook} = shelf.state;
 
     const addBook = () => shelf(Shelf.books.add(getNextId(books)));
     const removeBook = (id: number) => shelf(Shelf.books.remove(id));
@@ -42,9 +39,8 @@ export function ShelfEditor(
                         <div className="shelf-book"
                             key={book}
                             onClick={() => shelf(Shelf.selectBook(book))}>
-                            <ShelfBookEditor
-                                cursor={shelf}
-                                path={book}
+                            <BookEditor
+                                book={Shelf.books(shelf, book)}
                                 enableEditing={enableEditing && book === selectedBook}
                                 remove={() => removeBook(book)}/>
                         </div>

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { snapshot, Store } from "immuto";
+import * as I from "immuto";
 import { bindToStore } from "immuto-react";
 import { Shop } from "./models/shop";
 import { ShopEditor } from "./components/ShopEditor";
@@ -11,6 +12,13 @@ const store = Shop.reduce.store();
 for (const action of actions) {
     store.dispatch(action);
 }
+
+const StoreShopEditor = bindToStore(store, shop => <ShopEditor shop={shop} />);
+
+ReactDOM.render(
+    <StoreShopEditor />,
+    document.querySelector("#root"));
+
 
 /*
 
@@ -34,11 +42,5 @@ const store: Store<Shop, Action> = {
 store.subscribe(() => {
     console.log(JSON.stringify(log, null, 4));
 });
+
 */
-
-const StoreShopEditor = bindToStore(ShopEditor, store);
-
-ReactDOM.render(
-    <StoreShopEditor />,
-    document.querySelector("#root"));
-

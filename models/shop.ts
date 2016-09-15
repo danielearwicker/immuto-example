@@ -1,5 +1,5 @@
 import * as I from "immuto";
-import { action, reducer, collection, amend, numberMapOperations } from "immuto";
+import { action, property, reducer, collection, amend, numberMapOperations } from "immuto";
 
 import { Shelf } from "./shelf";
 
@@ -11,8 +11,7 @@ export interface Shop {
 
 export namespace Shop {
 
-    export const setName = action("SET_NAME",
-        (shop: Shop, name: string) => amend(shop, { name }));
+    export const name = property("NAME", (shop: Shop) => shop.name);
 
     export const selectShelf = action("SELECT_SHELF",
         (shop: Shop, selectedShelf: number) => amend(shop, { selectedShelf }));
@@ -28,7 +27,7 @@ export namespace Shop {
     export const empty: Shop = { name: "", shelves: {} };
 
     export const reduce = reducer(empty)
-        .action(setName)
+        .action(name)
         .action(selectShelf)
         .action(shelves);
 

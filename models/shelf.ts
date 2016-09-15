@@ -11,9 +11,8 @@ export interface Shelf {
 
 export namespace Shelf {
 
-    export const description = property("SET_DESCRIPTION",
-        (shelf: Shelf) => shelf.description,
-        (shelf: Shelf, description: string) => amend(shelf, { description }));
+    export const description = property("DESCRIPTION",
+        (shelf: Shelf) => shelf.description);
 
     export const selectBook = action("SELECT_BOOK",
         (shelf: Shelf, selectedBook: number) => amend(shelf, { selectedBook }));
