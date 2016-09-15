@@ -31,7 +31,7 @@ export function ShopEditor(
                     getIds(shelves).map(shelf =>
                         <div className="shop-shelf>"
                             key={shelf}
-                            onClick={ () => shop(Shop.selectShelf(shelf)) }>
+                            onClick={() => shop(Shop.selectShelf(shelf))}>
                             <ShopShelfEditor
                                 cursor={shop}
                                 path={shelf}

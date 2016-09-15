@@ -5,21 +5,27 @@ import { TextInput } from "./TextInput";
 
 export interface BookEditorProps {
     enableEditing: boolean;
+    remove(): void;
 }
 
 export function BookEditor(
-    {enableEditing}: BookEditorProps,
+    {enableEditing, remove}: BookEditorProps,
     book: Book.Cursor
 ) {
     const {title, price, authors} = book.state;
 
     const mainClass = "book" + (enableEditing ? " editing" : "");
 
+    const visibleIfEditing = {
+        visibility: enableEditing ? "visible" : "hidden"
+    };
+
     return (
         <div className={mainClass}>
             <div className="book-title">
                 <TextInput property={Book.title(book)}
                            placeholder="Book title" />
+                <button onClick={remove} style={visibleIfEditing}>X</button>
             </div>
             <div className="book-price">
                 <DecimalInput property={Book.price(book)}

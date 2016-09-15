@@ -19,6 +19,7 @@ export function ShelfEditor(
     const {description, books, selectedBook} = shelf.state;
 
     const addBook = () => shelf(Shelf.books.add(getNextId(books)));
+    const removeBook = (id: number) => shelf(Shelf.books.remove(id));
 
     const mainClass = "shelf" + (enableEditing ? " editing" : "");
 
@@ -40,11 +41,12 @@ export function ShelfEditor(
                     getIds(books).map(book =>
                         <div className="shelf-book"
                             key={book}
-                            onClick={ () => shelf(Shelf.selectBook(book)) }>
+                            onClick={() => shelf(Shelf.selectBook(book))}>
                             <ShelfBookEditor
                                 cursor={shelf}
                                 path={book}
-                                enableEditing={enableEditing && book === selectedBook}/>
+                                enableEditing={enableEditing && book === selectedBook}
+                                remove={() => removeBook(book)}/>
                         </div>
                     )
                 }
