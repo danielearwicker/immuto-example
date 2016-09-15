@@ -52,3 +52,20 @@ export const ShelfEditor = optimize((
     );
 }, ["remove"]);
 
+
+export const ShelfEditor2 = (
+    { shelf }: { shelf: Shelf.Cursor }
+) => (
+    <div>
+        {
+            getIds(shelf.state.books).map(book =>
+                <div key={book}>
+                    <BookEditor book={Shelf.books(shelf, book)} />
+                </div>
+            )
+        }
+    </div>
+);
+
+
+

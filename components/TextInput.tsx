@@ -3,7 +3,7 @@ import {Property} from "immuto";
 
 export interface TextInputProps {
     property: Property<string>;
-    placeholder: string;
+    placeholder?: string;
 }
 
 export function TextInput(

@@ -35,4 +35,3 @@ export const BookEditor = optimize((
         </div>
     );
 }, ["remove"]);
-

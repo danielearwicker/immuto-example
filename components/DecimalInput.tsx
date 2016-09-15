@@ -4,7 +4,7 @@ import { Property } from "immuto";
 export interface DecimalInputProps {
     property: Property<number>;
     decimalPlaces: number;
-    placeholder: string;
+    placeholder?: string;
 }
 
 export interface DecimalInputState {

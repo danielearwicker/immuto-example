@@ -16,13 +16,8 @@ export namespace Shop {
     export const selectShelf = action("SELECT_SHELF",
         (shop: Shop, selectedShelf: number) => amend(shop, { selectedShelf }));
 
-    export const shelves = collection({
-        type: "SHELVES",
-        reducer: Shelf.reduce,
-        operations: numberMapOperations<Shelf>(),
-        get: (shop: Shop) => shop.shelves,
-        set: (shop, shelves) => amend(shop, { shelves })
-    });
+    export const shelves = collection("SHELVES", Shelf.reduce, numberMapOperations<Shelf>(),
+        (shop: Shop) => shop.shelves);
 
     export const empty: Shop = { name: "", shelves: {} };
 
