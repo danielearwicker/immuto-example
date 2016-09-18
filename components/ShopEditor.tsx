@@ -1,8 +1,7 @@
 import * as React from "react";
-import { optimize } from "immuto-react";
+import { optimize, TextInput } from "immuto-react";
 import { Shop } from "../models/shop";
 import { ShelfEditor } from "./ShelfEditor";
-import { TextInput } from "./TextInput";
 import { getIds, getNextId } from "../util";
 
 export const ShopEditor = optimize((
@@ -16,7 +15,7 @@ export const ShopEditor = optimize((
     return (
         <div className="shop">
             <div className="shop-header">
-                <TextInput property={Shop.name(shop)} placeholder="Shop name" />
+                <TextInput binding={Shop.name(shop)} placeholder="Shop name" />
                 <button onClick={addShelf}>Add a shelf</button>
             </div>
             <div className="shop-shelves>">

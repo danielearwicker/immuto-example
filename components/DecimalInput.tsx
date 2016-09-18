@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Property } from "immuto";
+import { Property, replace } from "immuto";
 
 export interface DecimalInputProps {
-    property: Property<number>;
+    binding: Property<number>;
     decimalPlaces: number;
     placeholder?: string;
 }
@@ -29,9 +29,9 @@ export class DecimalInput
 
         const parsed = parseFloat(value);
         if (!isNaN(parsed)) {
-            this.props.property(
+            this.props.binding(replace(
                 roundDecimalPlaces(parsed, this.props.decimalPlaces)
-            );
+            ));
         }
     }
 
@@ -40,7 +40,7 @@ export class DecimalInput
             const parsed = parseFloat(this.state.valueAsString);
 
             if (roundDecimalPlaces(parsed, props.decimalPlaces) !==
-                roundDecimalPlaces(props.property.state, props.decimalPlaces)) {
+                roundDecimalPlaces(props.binding.state, props.decimalPlaces)) {
 
                 this.setState({});
             }
@@ -51,7 +51,7 @@ export class DecimalInput
 
         const valueAsString = this.state.valueAsString !== undefined
             ? this.state.valueAsString
-            : "" + this.props.property.state;
+            : "" + this.props.binding.state;
 
         return (
             <input

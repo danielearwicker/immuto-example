@@ -1,8 +1,7 @@
 import * as React from "react";
-import { optimize } from "immuto-react";
+import { optimize, TextInput } from "immuto-react";
 import { Shelf } from "../models/shelf";
 import { BookEditor } from "./BookEditor";
-import { TextInput } from "./TextInput";
 import { getIds, getNextId } from "../util";
 
 export interface ShelfEditorProps {
@@ -24,8 +23,8 @@ export const ShelfEditor = optimize((
     return (
         <div className={mainClass}>
             <div className="shelf-header">
-                <TextInput property={Shelf.description(shelf)}
-                    placeholder="Shelf description" />
+                <TextInput binding={Shelf.description(shelf)}
+                           placeholder="Shelf description" />
                 {
                     enableEditing ?
                         <span>
