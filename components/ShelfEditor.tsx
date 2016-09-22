@@ -1,6 +1,7 @@
 import * as React from "react";
+import { replace } from "immuto";
 import { optimize, TextInput } from "immuto-react";
-import { Shelf } from "../models/shelf";
+import { Shelf, Books, Book } from "../models/all";
 import { BookEditor } from "./BookEditor";
 import { getIds, getNextId } from "../util";
 
@@ -15,8 +16,12 @@ export const ShelfEditor = optimize((
 ) => {
     const { books, selectedBook } = shelf.state;
 
-    const addBook = () => shelf(Shelf.books.add(getNextId(books)));
-    const removeBook = (id: number) => shelf(Shelf.books.remove(id));
+    const addBook = () => shelf.$(Shelf.books)
+                               .$(Books.at(getNextId(books)))
+                               .$(Book.title)
+                               (replace(""));
+
+    const removeBook = (id: number) => shelf.$(Shelf.books)(Books.remove(id));
 
     const mainClass = "shelf" + (enableEditing ? " editing" : "");
 
@@ -35,14 +40,14 @@ export const ShelfEditor = optimize((
             </div>
             <div className="shelf-books">
                 {
-                    getIds(books).map(book =>
+                    getIds(books).map(id =>
                         <div className="shelf-book"
-                            key={book}
-                            onClick={() => shelf(Shelf.selectBook(book))}>
+                            key={id}
+                            onClick={() => shelf(Shelf.selectBook(id))}>
                             <BookEditor
-                                book={Shelf.books(shelf, book)}
-                                enableEditing={enableEditing && book === selectedBook}
-                                remove={() => removeBook(book)} />
+                                book={shelf.$(Shelf.books).$(Books.at(id))}
+                                enableEditing={enableEditing && id === selectedBook}
+                                remove={() => removeBook(id)} />
                         </div>
                     )
                 }

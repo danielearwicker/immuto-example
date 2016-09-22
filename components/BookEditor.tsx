@@ -22,12 +22,12 @@ export const BookEditor = optimize((
     return (
         <div className={mainClass}>
             <div className="book-title">
-                <TextInput binding={Book.title(book)}
+                <TextInput binding={book.$(Book.title)}
                            placeholder="Book title" />
                 <button onClick={remove} style={visibleIfEditing}>X</button>
             </div>
             <div className="book-price">
-                <DecimalInput binding={Book.price(book)}
+                <DecimalInput binding={book.$(Book.price)}
                               placeholder="Price"
                               decimalPlaces={2} />
             </div>

@@ -1,11 +1,9 @@
-import * as I from "immuto";
-import { action, reducer, property, collection, amend, numberMapOperations } from "immuto";
-
-import { Book } from "./book";
+import { action, reducer, property, reference, amend } from "immuto";
+import { Books } from "./books";
 
 export interface Shelf {
     readonly description: string;
-    readonly books: { [id: number]: Book };
+    readonly books: Books;
     readonly selectedBook?: number;
 }
 
@@ -17,8 +15,7 @@ export namespace Shelf {
     export const selectBook = action("SELECT_BOOK",
         (shelf: Shelf, selectedBook: number) => amend(shelf, { selectedBook }));
 
-    export const books = collection("BOOKS", Book.reduce, numberMapOperations<Book>(),
-        (shelf: Shelf) => shelf.books);
+    export const books = reference("BOOKS", Books, (shelf: Shelf) => shelf.books);
 
     export const empty: Shelf = { description: "", books: {} };
 

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { replace } from "immuto";
 import { optimize, TextInput } from "immuto-react";
-import { Shop } from "../models/shop";
+import { Shop, Shelves, Shelf } from "../models/all";
 import { ShelfEditor } from "./ShelfEditor";
 import { getIds, getNextId } from "../util";
 
@@ -9,8 +10,12 @@ export const ShopEditor = optimize((
 ) => {
     const { name, shelves, selectedShelf } = shop.state;
 
-    const addShelf = () => shop(Shop.shelves.add(getNextId(shelves)));
-    const removeShelf = (id: number) => shop(Shop.shelves.remove(id));
+    const addShelf = () => shop.$(Shop.shelves)
+                               .$(Shelves.at(getNextId(shelves)))
+                               .$(Shelf.description)
+                               (replace(""));
+
+    const removeShelf = (id: number) => shop.$(Shop.shelves)(Shelves.remove(id));
 
     return (
         <div className="shop">
@@ -20,14 +25,14 @@ export const ShopEditor = optimize((
             </div>
             <div className="shop-shelves>">
                 {
-                    getIds(shelves).map(shelf =>
+                    getIds(shelves).map(id =>
                         <div className="shop-shelf>"
-                            key={shelf}
-                            onClick={() => shop(Shop.selectShelf(shelf))}>
+                            key={id}
+                            onClick={() => shop(Shop.selectShelf(id))}>
                             <ShelfEditor
-                                shelf={Shop.shelves(shop, shelf)}
-                                enableEditing={shelf === selectedShelf}
-                                remove={() => removeShelf(shelf)}
+                                shelf={shop.$(Shop.shelves).$(Shelves.at(id))}
+                                enableEditing={id === selectedShelf}
+                                remove={() => removeShelf(id)}
                                 />
                         </div>
                     )

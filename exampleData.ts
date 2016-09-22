@@ -1,222 +1,70 @@
-import { Shop } from "./models/shop";
+import { Shop, Shelves, Shelf, Books, Book } from "./models/all";
+import { getIds } from "./util";
+import { replace } from "immuto";
 
-export const actions: typeof Shop.reduce.actionType[] = [
-    {
-        type: "NAME",
-        payload: { type: "REPLACE", payload: "Crazy Joe's Bookarama" }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "DESCRIPTION",
-                payload: { type: "REPLACE", payload: "Romance" }
-            }
-        }
-    },    
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1
+const shopData: Shop = {
+    name: "Crazy Joe's Bookarama",
+    shelves: {
+        1: {
+            description: "Romance",
+            books: {
+                1: {
+                    title: "1984",
+                    price: 8.99,
+                    authors: []
+                },
+                2: {
+                    title: "Gone with the Wind",
+                    price: 3.99,
+                    authors: []
+                },
+                3: {
+                    title: "Fifty Shades of Filth",
+                    price: 1.99,
+                    authors: []
                 }
             }
-        }
-    },    
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "1984" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "Gone with the Wind" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1,
-                    update: {
-                        type: "PRICE",
-                        payload: { type: "REPLACE", payload: 3.99 }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 2,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "50 Shades of Filth" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 1,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 2,
-                    update: {
-                        type: "PRICE",
-                        payload: { type: "REPLACE", payload: 8.99 }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "DESCRIPTION",
-                payload: { type: "REPLACE", payload: "History" }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "Henry VII for Dummies" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 1,
-                    update: {
-                        type: "PRICE",
-                        payload: { type: "REPLACE", payload: 12.99 }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 2,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "Rome: Day 1" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 2,
-                    update: {
-                        type: "PRICE",
-                        payload: { type: "REPLACE", payload: 16.99 }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 3,
-                    update: {
-                        type: "TITLE",
-                        payload: { type: "REPLACE", payload: "The Trump Experiment" }
-                    }
-                }
-            }
-        }
-    },
-    {
-        type: "SHELVES",
-        payload: {
-            key: 2,
-            update: {
-                type: "BOOKS",
-                payload: {
-                    key: 3,
-                    update: {
-                        type: "PRICE",
-                        payload: { type: "REPLACE", payload: 12.99 }
-                    }
+        },
+        2: {
+            description: "History",
+            books: {
+                1: {
+                    title: "Henry VII for Dummies",
+                    price: 12.99,
+                    authors: []
+                },
+                2: {
+                    title: "Rome: Day 1",
+                    price: 16.99,
+                    authors: []
+                },
+                3: {
+                    title: "Trump: Seriously?",
+                    price: 12.99,
+                    authors: []
                 }
             }
         }
     }
-];
+}
+
+export function loadExample(shop: Shop.Cursor) {
+
+    shop.$(Shop.name)(replace(shopData.name));
+    
+    for (const shelfId of getIds(shopData.shelves)) {
+        const shelfData = shopData.shelves[shelfId];
+
+        const shelf = shop.$(Shop.shelves).$(Shelves.at(shelfId));
+        shelf.$(Shelf.description)(replace(shelfData.description));
+
+        for (const bookId of getIds(shelfData.books)) {
+            const bookData = shelfData.books[bookId];
+
+            const book = shelf.$(Shelf.books).$(Books.at(bookId));
+
+            book.$(Book.title)(replace(bookData.title));
+            book.$(Book.price)(replace(bookData.price));
+        }
+    }
+}

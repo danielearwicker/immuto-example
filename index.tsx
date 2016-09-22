@@ -5,13 +5,11 @@ import * as I from "immuto";
 import { bindToStore } from "immuto-react";
 import { Shop } from "./models/shop";
 import { ShopEditor } from "./components/ShopEditor";
-import { actions } from "./exampleData";
+import { loadExample } from "./exampleData";
 
 const store = Shop.reduce.store();
 
-for (const action of actions) {
-    store.dispatch(action);
-}
+loadExample(snapshot(store));
 
 const StoreShopEditor = bindToStore(store, shop => <ShopEditor shop={shop} />);
 
@@ -19,25 +17,18 @@ ReactDOM.render(
     <StoreShopEditor />,
     document.querySelector("#root"));
 
-
 /*
 
-type Action = typeof Shop.reduce.actionType;
+How to wrap store in action logging (import {amend} from "immuto"):
 
-const log: Action[] = [];
-
-const store: Store<Shop, Action> = {
+const store2 = amend(store, {
     dispatch(action: Action) {
-        log.push(action);
-        return realStore.dispatch(action);
-    },
-    getState() {
-        return realStore.getState();
-    },
-    subscribe(func) {
-        return realStore.subscribe(func);
+        console.log(action);
+        return store.dispatch(action);
     }
-}
+});
+
+How to log every new state of the store:
 
 store.subscribe(() => {
     console.log(JSON.stringify(log, null, 4));

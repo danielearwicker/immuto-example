@@ -1,4 +1,3 @@
-import * as I from "immuto";
 import { action, reducer, amend, property } from "immuto";
 
 export interface Book {
